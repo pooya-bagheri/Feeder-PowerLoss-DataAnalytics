@@ -48,13 +48,13 @@ class Plot():
         plt.legend(legends, loc=legendloc)
         plt.show()    
     
-    def AssessPrediction(self,predicted,actual,IsTrainSet=False): 
+    def AssessPrediction(self,predicted,actual,IsTrainSet=False,TitleAddOn=""): 
         MAE=mean_absolute_error(actual,predicted)
         if IsTrainSet:
             SetName='Training'
         else:
             SetName='Test'
-        PltTitle='Average prediction error on %s set is %.1f%%' % (SetName,MAE/actual.mean()*100)
+        PltTitle='Average prediction error on %s set is %.1f%%' % (SetName,MAE/actual.mean()*100)+TitleAddOn
         self.Compare(predicted,actual,title=PltTitle)
      
     @staticmethod
@@ -64,7 +64,7 @@ class Plot():
         plt.title('Model loss')
         plt.ylabel('Loss')
         plt.xlabel('Epoch')
-        plt.legend(['Train', 'Test'], loc='upper left')
+        plt.legend(['Train', 'Test'], loc='upper right')
         plt.show()
             
         
