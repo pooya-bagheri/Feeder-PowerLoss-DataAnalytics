@@ -7,12 +7,15 @@ from sklearn.metrics import mean_absolute_error
 #class for plotting inside my analytic jupyter notebooks
 class Plot():
     def __init__(self,plotHeight=5,plotWidth=6,FromDay=1,ToDay=1):
-        plt.rcParams['figure.figsize'] = [plotWidth,plotHeight] #making the plots a bit larger than default size
+        self.Resize(plotHeight,plotWidth)
         self.TimeAxisLimits(FromDay,ToDay)
     
     def TimeAxisLimits(self,FromDay,ToDay):
         self.FromDay=FromDay
         self.ToDay=ToDay
+    
+    def Resize(self,plotHeight,plotWidth):
+        plt.rcParams['figure.figsize'] = [plotWidth,plotHeight] #making the plots a bit larger than default size
     
     def GenTimeAxis(self,Y):    
         self.Times=np.linspace(self.FromDay-1,self.ToDay,Y.shape[0])
