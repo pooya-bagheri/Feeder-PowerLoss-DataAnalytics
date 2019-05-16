@@ -18,7 +18,7 @@ class DataGenerator():
             d0=self.FromDay          
         else:
             d0=self.LastLoadedDay+1
-        d1=min(d0+self.DaysPerChunk,self.ToDay)    
+        d1=min(d0+self.DaysPerChunk-1,self.ToDay)    
         DataChunk=MLinputData(d0,d1) #uses an instant of MLinputData to load one full day of data using SQL queries written inside this class
         #Scaling the data
         if not hasattr(self,'scaler_x'): #if called for first-time, initialize scaler
@@ -49,4 +49,8 @@ class DataGenerator():
             self.BatchPointer += self.BatchSize
         Range=(self.BatchPointer,self.BatchEndPointer())
         return (self.xData[Range[0]:Range[1],:],self.yData[Range[0]:Range[1]])
+    
+    def StepsPerEpoch(self):
+        Nallsamples=self.xData.shape[0]/self.DaysPerChunk*(self.ToDay-self.FromDay+1)
+        return int(Nallsamples/self.BatchSize)
 
